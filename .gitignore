@@ -8,6 +8,11 @@
 # dependencies
 /node_modules
 
+#cordova
+/cordova/platforms
+/cordova/plugins
+/cordova/www
+
 # IDEs and editors
 /.idea
 .project

@@ -1,16 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, SystemJsNgModuleLoader} from '@angular/core';
 
 import { AppComponent } from './app.component';
+import {NglModule} from 'ng-lightning';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {RoutesModule} from './app.routes';
+import {FormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NglModule.forRoot(),
+    FlexLayoutModule,
+    RoutesModule,
+    FormsModule
+
   ],
-  providers: [],
+
+  providers: [SystemJsNgModuleLoader],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

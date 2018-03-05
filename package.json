@@ -5,30 +5,40 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "cordova": "cd cordova && del /s /q www && cd .. && ng build --env=prod --base-href . --sourcemaps --output-hashing none --output-path cordova/www/",
+    "cordova-run": "npm run cordova && cd cordova && cordova run browser",
+    "cordova-build": "npm run cordova && cd cordova && cordova build browser --release"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.0.0",
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/http": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
-    "@angular/router": "^4.0.0",
+    "@angular/animations": "^5.2.6",
+    "@angular/common": "^5.2.6",
+    "@angular/compiler": "^5.2.6",
+    "@angular/core": "^5.2.6",
+    "@angular/flex-layout": "5.0.0-beta.13",
+    "@angular/forms": "^5.2.6",
+    "@angular/http": "^5.2.6",
+    "@angular/platform-browser": "^5.2.6",
+    "@angular/platform-browser-dynamic": "^5.2.6",
+    "@angular/router": "^5.2.6",
+    "@salesforce-ux/design-system": "~2.5.2",
     "core-js": "^2.4.1",
-    "rxjs": "^5.4.1",
-    "zone.js": "^0.8.14"
+    "especificoTest": "file:../especificoTest/dist/especificoTest-0.0.0.tgz",
+    "ng-lightning": "^2.0.1",
+    "rxjs": "^5.5.6",
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "1.2.8",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/language-service": "^4.0.0",
+    "@angular/cli": "1.6.8",
+    "@angular/compiler-cli": "^5.2.6",
+    "@angular/language-service": "^5.2.6",
+    "@types/cordova": "0.0.34",
+    "@types/cordova-plugin-file": "^4.3.2",
+    "@types/cordova-sqlite-storage": "^1.5.3",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
@@ -44,6 +54,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
-    "typescript": "~2.3.3"
+    "typescript": "~2.6.2"
   }
 }
