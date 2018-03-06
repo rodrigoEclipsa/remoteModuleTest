@@ -42,7 +42,6 @@ export class AppComponent implements OnInit
   loadModuleMethod1()
   {
 
-
     let routerSet:Routes =
       [
         {
@@ -62,7 +61,7 @@ export class AppComponent implements OnInit
 
     let componentName = 'EspecificoTestComponent';
 
-    this.loader.load('modules/especifico-test/especifico-test.module#EspecificoTestModule')  // load the module and its components
+    this.loader.load(this.pathModule)  // load the module and its components
         .then((modFac) =>
         {
           // the missing step, need to use Compiler to resolve the module's embedded components
@@ -102,7 +101,7 @@ export class AppComponent implements OnInit
     // alert('holaa')
     // this.router.navigate(['especifico-test']);
 
-     this.loader.load('modules/especifico-test/especifico-test.module#EspecificoTestModule')
+     this.loader.load(this.pathModule)
      //  this.loader.load('modules/especifico-test/bundles/EspecificoTestModule')
      .then((factory:NgModuleFactory<any>) =>
      {
