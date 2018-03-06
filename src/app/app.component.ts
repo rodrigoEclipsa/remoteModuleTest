@@ -27,7 +27,7 @@ export class AppComponent implements OnInit
 
 
 
-  pathModule:string = '../assets/modules/especifico-test/especifico-test.module#EspecificoTestModule';
+  pathModule:string = 'modules/especifico-test/especifico-test.module#EspecificoTestModule';
 
   constructor(private router:Router,
               private compiler: Compiler,
@@ -42,19 +42,18 @@ export class AppComponent implements OnInit
   loadModuleMethod1()
   {
 
-    let pathModule:string = '../assets/modules/especifico-test/especifico-test.module#EspecificoTestModule';
+
     let routerSet:Routes =
       [
         {
           path:'especifico-test',
-          // loadChildren:'../assets/modules/especifico-test-wrapping/especifico-test-wrapping.module#EspecificoTestWrappingModule'
-          loadChildren:pathModule
+
+          loadChildren:this.pathModule
         }
       ]
     ;
 
     this.router.resetConfig(routerSet);
-
 
     /*
      this.moduleNode.modulePath = '../modules/especifico-test-wrapping/especifico-test-wrapping.module#EspecificoTestWrappingModule';
@@ -63,7 +62,7 @@ export class AppComponent implements OnInit
 
     let componentName = 'EspecificoTestComponent';
 
-    this.loader.load(this.pathModule)  // load the module and its components
+    this.loader.load('modules/especifico-test/especifico-test.module#EspecificoTestModule')  // load the module and its components
         .then((modFac) =>
         {
           // the missing step, need to use Compiler to resolve the module's embedded components
@@ -72,7 +71,8 @@ export class AppComponent implements OnInit
               .then((factory: ModuleWithComponentFactories<any>) => {
                 return factory.componentFactories.find(x => x.componentType.name === componentName);
               })
-              .then(cmpFactory => {
+              .then(cmpFactory =>
+              {
 
                 // need to instantiate the Module so we can use it as the provider for the new component
                 let modRef = modFac.create(this.viewref.parentInjector);
@@ -86,14 +86,12 @@ export class AppComponent implements OnInit
   loadModuleMethod2()
   {
 
-    const pathModule:string = '../assets/modules/especifico-test/especifico-test.module#EspecificoTestModule';
 
-    this.router.dispose();
     let routerSet:Routes =
       [
         {
           path:'especifico-test',
-          loadChildren:pathModule
+          loadChildren:this.pathModule
         }
       ]
     ;
@@ -104,7 +102,7 @@ export class AppComponent implements OnInit
     // alert('holaa')
     // this.router.navigate(['especifico-test']);
 
-     this.loader.load(this.pathModule)
+     this.loader.load('modules/especifico-test/especifico-test.module#EspecificoTestModule')
      //  this.loader.load('modules/especifico-test/bundles/EspecificoTestModule')
      .then((factory:NgModuleFactory<any>) =>
      {
@@ -120,10 +118,19 @@ export class AppComponent implements OnInit
 
   }
 
-  test()
+  test(methodNumber:number)
   {
 
-    this.loadModuleMethod2();
+    switch(methodNumber)
+    {
+      case 1:
+        this.loadModuleMethod1();
+        break;
+
+      case 2:
+        this.loadModuleMethod2();
+        break;
+    }
 
 
   }

@@ -1,14 +1,24 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div fxFlex="column" fxLayoutGap="6px">
 
-  <div fxLayout="row">
+  <div fxLayout="column">
 
     <button
       type="button"
-      (click)="test()"
+      (click)="test(1)"
+      nglButton="neutral"
+      style="width: 100px"
+    >
+      load method 1
+    </button>
+
+    <button
+      type="button"
+      (click)="test(2)"
+      style="width: 100px"
       nglButton="neutral"
     >
-      load module
+      load method 2
     </button>
 
     <input [(ngModel)]="pathModule" style="width: 100%">
