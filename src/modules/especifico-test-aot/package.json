@@ -1,18 +1,15 @@
 {
-  "name": "uptocloud",
+  "name": "especificoTest",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-aot": "ng serve --env=prod --aot",
-    "build": "ng build --prod --env=prod  --named-chunks=true --base-href /uptocloud/",
+    "build": "ng build --prod --env=prod --named-chunks --vendor-chunk true --output-hashing none",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cordova": "cd cordova && del /s /q www && cd .. && ng build --env=prod --base-href . --sourcemaps --output-hashing none --output-path cordova/www/",
-    "cordova-run": "npm run cordova && cd cordova && cordova run browser",
-    "cordova-build": "npm run cordova && cd cordova && cordova build browser --release"
+    "packagr": "ng-packagr -p ng-package.json  "
   },
   "private": true,
   "dependencies": {
@@ -20,31 +17,28 @@
     "@angular/common": "^5.2.6",
     "@angular/compiler": "^5.2.6",
     "@angular/core": "^5.2.6",
-    "@angular/flex-layout": "5.0.0-beta.13",
     "@angular/forms": "^5.2.6",
     "@angular/http": "^5.2.6",
     "@angular/platform-browser": "^5.2.6",
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/router": "^5.2.6",
+    "@angular/flex-layout": "5.0.0-beta.13",
     "@salesforce-ux/design-system": "~2.5.2",
     "core-js": "^2.4.1",
     "ng-lightning": "^2.0.1",
     "rxjs": "^5.5.6",
-    "systemjs": "^0.21.0",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.20",
+    "tslib": "^1.7.1"
   },
   "devDependencies": {
     "@angular/cli": "1.6.8",
     "@angular/compiler-cli": "^5.2.6",
     "@angular/language-service": "^5.2.6",
     "@types/cordova": "0.0.34",
-    "@types/cordova-plugin-file": "^4.3.2",
     "@types/cordova-sqlite-storage": "^1.5.3",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
-    "@types/systemjs": "^0.20.6",
-    "angular-router-loader": "^0.8.2",
     "codelyzer": "~3.0.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
@@ -54,9 +48,15 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-packagr": "^2.1.0",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
     "typescript": "~2.6.2"
-  }
+  },
+  "main": "bundles/especificoTest.umd.js",
+  "module": "esm5/especificoTest.js",
+  "es2015": "esm2015/especificoTest.js",
+  "typings": "especificoTest.d.ts",
+  "metadata": "especificoTest.metadata.json"
 }

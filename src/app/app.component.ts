@@ -8,11 +8,11 @@ import {
 import * as corodova from 'cordova';
 import {RouterConfigLoader} from '@angular/router/src/router_config_loader';
 import {Router, Routes} from '@angular/router';
+import {System} from "systemjs";
 
 
 
 declare var LocalFileSystem;
-
 
 @Component({
   selector:'app-root',
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit
 
 
 
-  pathModule:string = 'modules/especifico-test/especifico-test.module#EspecificoTestModule';
+  pathModule:string = 'modules/especifico-test/especifico-test.module';
 
   constructor(private router:Router,
               private compiler: Compiler,
@@ -41,7 +41,6 @@ export class AppComponent implements OnInit
 
   loadModuleMethod1()
   {
-
     let routerSet:Routes =
       [
         {
@@ -49,10 +48,11 @@ export class AppComponent implements OnInit
 
           loadChildren:this.pathModule
         }
-      ]
-    ;
+      ];
 
-    this.router.resetConfig(routerSet);
+    this.router.resetConfig(routerSet)
+
+
 
     /*
      this.moduleNode.modulePath = '../modules/especifico-test-wrapping/especifico-test-wrapping.module#EspecificoTestWrappingModule';
@@ -90,7 +90,7 @@ export class AppComponent implements OnInit
       [
         {
           path:'especifico-test',
-          loadChildren:this.pathModule
+          loadChildren:'../modules/especifico-test/especifico-test.module'
         }
       ]
     ;
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit
     // alert('holaa')
     // this.router.navigate(['especifico-test']);
 
-     this.loader.load(this.pathModule)
+     this.loader.load('../modules/especifico-test/especifico-test.module')
      //  this.loader.load('modules/especifico-test/bundles/EspecificoTestModule')
      .then((factory:NgModuleFactory<any>) =>
      {
@@ -117,6 +117,79 @@ export class AppComponent implements OnInit
 
   }
 
+
+
+  loadModuleMethod3()
+  {
+
+
+    System.import('../modules/especifico-test/especifico-test.module').then((module:NgModuleFactory<any>)=>
+    {
+
+      const moduleFactory = module['EspecificoTestModule'];
+    //  const entryComponent = (<any>moduleFactory.moduleType).entry;
+      const moduleRef = moduleFactory.create(this.inj);
+      const resolver = moduleRef.componentFactoryResolver;
+      const compFactory = resolver.resolveComponentFactory('EspecificoTestModule');
+      this.container.createComponent(compFactory);
+    })
+
+  }
+
+  loadModuleMethod4()
+  {
+/*
+    let routerSet:Routes =
+      [
+        {
+          path:'especifico-test',
+          loadChildren:this.pathModule
+        }
+      ]
+    ;
+
+    this.router.resetConfig(routerSet);
+
+    System.import(this.pathModule)
+          .then((module:NgModuleFactory<any>)=>
+    {
+      const moduleFactory = this.compiler.compileModuleSync(module['EspecificoTestModule']);
+      const entryComponent = (<any>moduleFactory.moduleType).entry;
+      const moduleRef = moduleFactory.create(this.inj);
+      const resolver = moduleRef.componentFactoryResolver;
+      const compFactory = resolver.resolveComponentFactory(entryComponent);
+      this.container.createComponent(compFactory);
+    });
+*/
+
+/*
+let a = '../modules/especifico-test/especifico-test.module';
+    import('../modules/especifico-test/especifico-test.module').then(module => {
+      const moduleFactory = this.compiler.compileModuleSync(module['EspecificoTestModule']);
+      const entryComponent = (<any>moduleFactory.moduleType).entry;
+      const moduleRef = moduleFactory.create(this.inj);
+      const resolver = moduleRef.componentFactoryResolver;
+      const compFactory = resolver.resolveComponentFactory(entryComponent);
+      this.container.createComponent(compFactory);
+    });
+*/
+
+
+    let a = '../modules/especifico-test/especifico-test.module';
+    import('../modules/especifico-test/especifico-test.module').then(module => {
+      const entryComponent = module['EspecificoTestModule'].entry
+      const moduleRef:NgModuleRef<any> = module['create'](this.inj);
+
+      const compFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(entryComponent);
+      this.container.createComponent(compFactory);
+    });
+
+
+
+
+  }
+
+
   test(methodNumber:number)
   {
 
@@ -128,6 +201,14 @@ export class AppComponent implements OnInit
 
       case 2:
         this.loadModuleMethod2();
+        break;
+
+      case 3:
+        this.loadModuleMethod3();
+        break;
+
+      case 4:
+        this.loadModuleMethod4();
         break;
     }
 
